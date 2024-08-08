@@ -30,8 +30,17 @@ namespace Shopping.Controllers
 
 				_dataContext.Add(orderItem);
 				_dataContext.SaveChanges();
-				TempData["success"] = "Đơn hàng đã được tạo!";
-				return RedirectToAction("Index", "Cart");
+				List<CartItemModel> cartItems = HttpContext.Session.GetJson<List<CartItemModel>>("Cart") ?? new List<CartItemModel>();
+
+				foreach (var cart in cartItems)
+				{
+					var orderDetail = new OrderDetail();
+					orderDetail.UserName = userEmail;
+					orderDetail.OrderCode = ordercode;
+					orderDetail.ProductId = cart.ProductId;
+					orderDetail.Price = cart.Price;
+					orderDetail.Quantity = cart.Quantity;
+				}
 			}
 			return View();
 		}
