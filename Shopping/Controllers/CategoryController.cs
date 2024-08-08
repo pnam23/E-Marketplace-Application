@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Models;
 using Shopping.Repository;
 
 namespace Shopping.Controllers
 {
+	[Area("Admin")]
+	[Authorize]
 	public class CategoryController : Controller
 	{
 		private readonly DataContext _dataContext;

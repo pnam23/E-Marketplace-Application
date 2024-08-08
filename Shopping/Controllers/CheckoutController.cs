@@ -40,7 +40,11 @@ namespace Shopping.Controllers
 					orderDetail.ProductId = cart.ProductId;
 					orderDetail.Price = cart.Price;
 					orderDetail.Quantity = cart.Quantity;
+					_dataContext.Add(orderDetail);
+					_dataContext.SaveChanges();
 				}
+				TempData["success"] = "Checkout thành công, vui lòng chờ duyệt đơn hàng!";
+				return RedirectToAction("Index", "Cart");
 			}
 			return View();
 		}
