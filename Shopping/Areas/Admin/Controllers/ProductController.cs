@@ -8,7 +8,7 @@ using Shopping.Repository;
 namespace Shopping.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize]
+	[Route("Admin/Product")]
 	public class ProductController:Controller
 	{
 		private readonly DataContext _dataContext;
@@ -18,10 +18,12 @@ namespace Shopping.Areas.Admin.Controllers
 			_dataContext = context;
 			_webHostEnvironment = webHostEnvironment;
 		}
+		[Route("Index")]
 		public async Task<IActionResult> Index()
 		{
 			return View(await _dataContext.Products.OrderBy(p => p.Id).Include(p => p.Category).Include(p => p.Brand).ToListAsync());
 		}
+		[Route("Create")]
 		[HttpGet]
         public IActionResult Create()
         {
@@ -29,7 +31,7 @@ namespace Shopping.Areas.Admin.Controllers
 			ViewBag.Brands = new SelectList(_dataContext.Brands, "Id", "Name");
 			return View();
 		}
-		//[Route("Create")]
+		[Route("Create")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(ProductModel product)
@@ -82,6 +84,7 @@ namespace Shopping.Areas.Admin.Controllers
 			
 			return View(product);
 		}
+		[Route("Edit")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			ProductModel product = await _dataContext.Products.FindAsync(id);
@@ -91,8 +94,8 @@ namespace Shopping.Areas.Admin.Controllers
 		
 			return View(product);
 		}
-			//[Route("Edit")]
-			[HttpPost]
+		[Route("Edit")]
+		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(ProductModel product)
 		{
@@ -162,7 +165,7 @@ namespace Shopping.Areas.Admin.Controllers
 
 			return View(product);
 		}
-
+		[Route("Delete")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			ProductModel product = await _dataContext.Products.FindAsync(id);

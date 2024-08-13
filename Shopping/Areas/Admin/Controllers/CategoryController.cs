@@ -9,7 +9,7 @@ using Shopping.Repository;
 namespace Shopping.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize]
+	[Route("Admin/Category")]
 	public class CategoryController:Controller
 	{
 		private readonly DataContext _dataContext;
@@ -17,14 +17,17 @@ namespace Shopping.Areas.Admin.Controllers
 		{
 			_dataContext = context;
 		}
+		[Route("Index")]
 		public async Task<IActionResult> Index()
 		{
 			return View(await _dataContext.Categories.OrderBy(p => p.Id).ToListAsync());
 		}
+		[Route("Create")]
 		public IActionResult Create()
 		{
 			return View();
 		}
+		[Route("Create")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CategoryModel category)
@@ -61,6 +64,7 @@ namespace Shopping.Areas.Admin.Controllers
 
 			return View(category);
 		}
+		[Route("Delete")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			CategoryModel category = await _dataContext.Categories.FindAsync(id);
@@ -75,14 +79,14 @@ namespace Shopping.Areas.Admin.Controllers
 			TempData["error"] = "Đã xóa danh mục!";
 			return RedirectToAction("Index");
 		}
-
+		[Route("Edit")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			CategoryModel category = await _dataContext.Categories.FindAsync(id);
 
 			return View(category);
 		}
-
+		[Route("Edit")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(CategoryModel category)

@@ -7,7 +7,7 @@ using Shopping.Repository;
 namespace Shopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Route("Admin/Brand")]
     public class BrandController:Controller
     {
         private readonly DataContext _dataContext;
@@ -15,14 +15,17 @@ namespace Shopping.Areas.Admin.Controllers
         {
             _dataContext = context;
         }
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             return View(await _dataContext.Brands.OrderBy(b => b.Id).ToListAsync());
         }
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
+        [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BrandModel brand)

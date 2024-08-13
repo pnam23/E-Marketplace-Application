@@ -6,18 +6,18 @@ using Shopping.Repository;
 namespace Shopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/Order")]
-    public class OrderController : Controller
+    [Route("Admin/User")]
+    public class UserController : Controller
     {
         private readonly DataContext _dataContext;
-        public OrderController(DataContext dataContext)
+        public UserController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
         [Route("Index")]
-		public async Task<IActionResult> Index()
-		{
-			return View(await _dataContext.Orders.OrderBy(p => p.Id).ToListAsync());
-		}
-	}
+        public async  Task<IActionResult> Index()
+        {
+            return View(await _dataContext.Users.OrderBy(u => u.Id).ToListAsync());
+        }
+    }
 }
