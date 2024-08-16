@@ -13,16 +13,25 @@ namespace Shopping.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUserModel> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+
+        private readonly DataContext _dataContext;
        
-        public UserController(UserManager<AppUserModel> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(UserManager<AppUserModel> userManager, RoleManager<IdentityRole> roleManager, DataContext dataContext)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _dataContext = dataContext;
         }
+        [HttpGet]
         [Route("Index")]
         public async  Task<IActionResult> Index()
         {
-            return View(await _userManager.Users.OrderBy(u => u.Id).ToListAsync());
+            var usersWithRoles = await (from u in _dataContext.Users
+                                        join ur in _dataContext.UserRoles on u.Id equals ur.UserId
+                                        join r in _dataContext.Roles on ur.RoleId equals r.Id
+                                        select new { User = u, RoleName = r.Name }).ToListAsync();
+
+            return View(usersWithRoles);
         }
         [HttpGet]
         [Route("Create")]
@@ -42,6 +51,19 @@ namespace Shopping.Areas.Admin.Controllers
                 var createUserResult = await _userManager.CreateAsync(user, user.PasswordHash);
                 if (createUserResult.Succeeded)
                 {
+                    var createUser = await _userManager.FindByEmailAsync(user.Email);
+                    var userId = createUser.Id;
+                    var role = _roleManager.FindByIdAsync(user.RoleId);
+
+                    // Grant role
+                    var grantRoleResult = await _userManager.AddToRoleAsync(createUser, role.Result.Name);
+                    if (!grantRoleResult.Succeeded)
+                    {
+                        foreach (var error in createUserResult.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                    }
                     return RedirectToAction("Index", "User");
                 }
                 else
@@ -50,6 +72,7 @@ namespace Shopping.Areas.Admin.Controllers
 					{
 						ModelState.AddModelError("", error.Description);
 					}
+					TempData["error"] = "Model có một vài thứ đang bị lỗi!";
 					return View(user);
                 }
             }
