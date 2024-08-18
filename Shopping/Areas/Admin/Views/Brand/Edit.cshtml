@@ -5,6 +5,8 @@
 <h4>Edit brand</h4>
 <div class="col-md-9">
 	<form asp-action="Edit" enctype="multipart/form-data">
+		<input type="hidden" asp-for="Id" />
+
 		<div asp-asp-validation-summary="ModelOnly" class="text-danger">
 			<div class="form-group">
 				<label>Name</label>

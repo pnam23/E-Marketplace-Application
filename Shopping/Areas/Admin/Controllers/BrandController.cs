@@ -8,6 +8,7 @@ namespace Shopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Brand")]
+    [Authorize(Roles = "Admin,Author,Publisher")]
     public class BrandController:Controller
     {
         private readonly DataContext _dataContext;
@@ -60,6 +61,7 @@ namespace Shopping.Areas.Admin.Controllers
                 return BadRequest(errorMessage);
             }
         }
+        [Route("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
             BrandModel brand = await _dataContext.Brands.FindAsync(id);
@@ -74,13 +76,14 @@ namespace Shopping.Areas.Admin.Controllers
             TempData["error"] = "Đã xóa thương hiệu!";
             return RedirectToAction("Index");
         }
+        [Route("Edit")]
         public async Task<IActionResult> Edit(int id)
         {
             BrandModel brand = await _dataContext.Brands.FindAsync(id);
 
             return View(brand);
         }
-
+        [Route("Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BrandModel brand)

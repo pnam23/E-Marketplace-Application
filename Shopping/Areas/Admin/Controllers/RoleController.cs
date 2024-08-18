@@ -26,6 +26,7 @@ namespace Shopping.Areas.Admin.Controllers
             return View(await _dataContext.Roles.OrderBy(r => r.Id).ToListAsync());
         }
         [Route("Create")]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -40,5 +41,75 @@ namespace Shopping.Areas.Admin.Controllers
             }
             return RedirectToAction("Index", "Role");
 		}
+        [HttpGet]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await _roleManager.DeleteAsync(role);
+                TempData["susccess"] = "Đã xóa Role thành công!";
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Lỗi khi xóa Role");
+            }
+            return Redirect("Index");
+        }
+		[HttpGet]
+		[Route("Edit")]
+		public async Task<IActionResult> Edit(string id)
+		{
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+            var role = await _roleManager.FindByIdAsync(id);
+			return View(role);
+		}
+        [HttpPost]
+        [Route("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, IdentityRole model)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid) {
+                var role = await _roleManager.FindByIdAsync(id);
+                if(role == null)
+                {
+                    return NotFound();
+                }
+
+                role.Name = model.Name;
+
+                try
+                {
+                    await _dataContext.SaveChangesAsync();
+                    TempData["success"] = "Cập nhật Role thành công!";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+					ModelState.AddModelError("", "Lỗi khi cập nhật Role");
+				}
+            }
+            return View(model ?? new IdentityRole { Id = id });
+        }
 	}
 }

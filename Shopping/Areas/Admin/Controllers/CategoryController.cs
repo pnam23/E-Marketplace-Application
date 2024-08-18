@@ -10,19 +10,40 @@ namespace Shopping.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	[Route("Admin/Category")]
-	public class CategoryController:Controller
+    [Authorize(Roles = "Author, Publisher,Admin")]
+    public class CategoryController:Controller
 	{
 		private readonly DataContext _dataContext;
 		public  CategoryController(DataContext context)
 		{
 			_dataContext = context;
 		}
-		[Route("Index")]
-		public async Task<IActionResult> Index()
-		{
-			return View(await _dataContext.Categories.OrderBy(p => p.Id).ToListAsync());
-		}
-		[Route("Create")]
+        [Route("Index")]
+        public async Task<IActionResult> Index(int pg = 1)
+        {
+            List<CategoryModel> category = _dataContext.Categories.ToList();
+
+            const int pageSize = 10; //10 items/trang
+
+            if (pg < 1) //page < 1;
+            {
+                pg = 1; //page ==1
+            }
+            int recsCount = category.Count(); 
+
+            var pager = new Paginate(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize; //(3 - 1) * 10; 
+
+            //category.Skip(20).Take(10).ToList()
+
+            var data = category.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            ViewBag.Pager = pager;
+
+            return View(data);
+        }
+        [Route("Create")]
 		public IActionResult Create()
 		{
 			return View();
@@ -86,8 +107,8 @@ namespace Shopping.Areas.Admin.Controllers
 
 			return View(category);
 		}
-		[Route("Edit")]
 		[HttpPost]
+		[Route("Edit")]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(CategoryModel category)
 		{
