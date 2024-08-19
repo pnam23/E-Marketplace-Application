@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shopping.Areas.Admin.Repository;
 using Shopping.Models;
 using Shopping.Models.ViewModels;
 
@@ -9,11 +10,13 @@ namespace Shopping.Controllers
 	{
 		private UserManager<AppUserModel> _userManager;
 		private SignInManager<AppUserModel> _signInManager;
+		private readonly IEmailSender _emailSender;
 
-		public AccountController(SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager)
+		public AccountController(IEmailSender emailSender,SignInManager<AppUserModel> signInManager, UserManager<AppUserModel> userManager)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
+			_emailSender = emailSender;
 		}
 		public IActionResult Login(string returnUrl)
 		{
@@ -27,6 +30,12 @@ namespace Shopping.Controllers
 				Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(loginVM.UserName, loginVM.Password, false, false);
 				if (result.Succeeded)
 				{
+					TempData["success"] = "Đăng nhập thành công!";
+					var reciever = "renducluyentai666@gmail.com";
+					var subject = "Đăng nhập trên thiết bị thành công!";
+					var message = "Đăng nhập thành công, chúc bạn trải nghiệm dịch vụ vui vẻ!";
+
+					await _emailSender.SendEmailAsync(reciever, subject, message);
 					return Redirect(loginVM.ReturnUrl ?? "/");
 				}
 				ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shopping.Areas.Admin.Repository;
 using Shopping.Models;
 using Shopping.Repository;
 
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectedDb"));
 });
+
+//Add Email Sender
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddDistributedMemoryCache();
 
