@@ -65,7 +65,9 @@ namespace Shopping.Areas.Admin.Controllers
                         {
                             ModelState.AddModelError("", error.Description);
                         }
+                        TempData["success"] = "Thêm user thành công!";
                     }
+
                     return RedirectToAction("Index", "User");
                 }
                 else
@@ -109,9 +111,11 @@ namespace Shopping.Areas.Admin.Controllers
             var deleteResult = await _userManager.DeleteAsync(user);
             if (deleteResult.Succeeded)
             {
-                TempData["success"] = "Đã xóa người dùng thành công!";
+               
                 return RedirectToAction("Index", "User");
-            }
+
+				TempData["success"] = "Đã xóa người dùng thành công!";
+			}
             else
             {
                 return View("Error");
@@ -156,6 +160,7 @@ namespace Shopping.Areas.Admin.Controllers
 				var updateUserResult = await _userManager.UpdateAsync(existingUser);
 				if (updateUserResult.Succeeded)
 				{
+                    TempData["success"] = "Cập nhật thông tin user thành công!";
 					return RedirectToAction("Index", "User");
 				}
 				else

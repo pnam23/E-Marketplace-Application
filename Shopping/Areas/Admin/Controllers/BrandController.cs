@@ -73,7 +73,7 @@ namespace Shopping.Areas.Admin.Controllers
 
             _dataContext.Brands.Remove(brand);
             await _dataContext.SaveChangesAsync();
-            TempData["error"] = "Đã xóa thương hiệu!";
+            TempData["success"] = "Đã xóa thương hiệu!";
             return RedirectToAction("Index");
         }
         [Route("Edit")]
@@ -124,8 +124,6 @@ namespace Shopping.Areas.Admin.Controllers
                 string errorMessage = string.Join('\n', errors);
                 return BadRequest(errorMessage);
             }
-
-            return View(brand);
         }
     }
 }
