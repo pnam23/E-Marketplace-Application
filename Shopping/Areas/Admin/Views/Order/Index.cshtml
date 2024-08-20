@@ -1,7 +1,7 @@
 ﻿
 @model IEnumerable<OrderModel>
 @{
-    ViewData["title"] = "Order List";
+    ViewData["title"] = "List Orders";
 }
 
 <h3>List Orders</h3>
@@ -37,7 +37,7 @@
                     }
                 </td>
                 <td>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="Order" asp-route-id="@item.OrderCode">Edit</a>
+                    <a class="btn btn-warning btn-sm" asp-action="ViewDetails" asp-controller="Order" asp-route-ordercode="@item.OrderCode">Details</a>
                     <a class="btn btn-danger btn-sm confirmDeletion" asp-action="Delete" asp-controller="Order" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
