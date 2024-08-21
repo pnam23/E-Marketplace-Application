@@ -21,28 +21,29 @@ namespace Shopping.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index(int pg = 1)
         {
-            List<CategoryModel> category = _dataContext.Categories.ToList();
+			//List<CategoryModel> category = _dataContext.Categories.ToList();
 
-            const int pageSize = 10; //10 items/trang
+			//const int pageSize = 10; //10 items/trang
 
-            if (pg < 1) //page < 1;
-            {
-                pg = 1; //page ==1
-            }
-            int recsCount = category.Count(); 
+			//if (pg < 1) //page < 1;
+			//{
+			//    pg = 1; //page ==1
+			//}
+			//int recsCount = category.Count(); 
 
-            var pager = new Paginate(recsCount, pg, pageSize);
+			//var pager = new Paginate(recsCount, pg, pageSize);
 
-            int recSkip = (pg - 1) * pageSize; //(3 - 1) * 10; 
+			//int recSkip = (pg - 1) * pageSize; //(3 - 1) * 10; 
 
-            //category.Skip(20).Take(10).ToList()
+			////category.Skip(20).Take(10).ToList()
 
-            var data = category.Skip(recSkip).Take(pager.PageSize).ToList();
+			//var data = category.Skip(recSkip).Take(pager.PageSize).ToList();
 
-            ViewBag.Pager = pager;
+			//ViewBag.Pager = pager;
 
-            return View(data);
-        }
+			//return View(data);
+			return View(await _dataContext.Categories.OrderBy(p => p.Id).ToListAsync());
+		}
         [Route("Create")]
 		public IActionResult Create()
 		{
