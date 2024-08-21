@@ -149,7 +149,6 @@ namespace Shopping.Areas.Admin.Controllers
 				return BadRequest(errorMessage);
 			}
 
-			return View(category);
 		}
 	}
 }
