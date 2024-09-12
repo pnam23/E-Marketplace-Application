@@ -21,9 +21,16 @@ namespace Shopping.Controllers
 		{
 			if (id == null) return RedirectToAction("Index");
 
-			var producsById = _dataContext.Products.Where(p => p.Id == id).FirstOrDefault();
+			var productsById = _dataContext.Products.Where(p => p.Id == id).FirstOrDefault();
 
-			return View(producsById);
+			// Related Products
+			var relatedProducts = await _dataContext.Products
+					.Where(p=>p.CategoryId == productsById.CategoryId && p.Id != productsById.Id)
+					.Take(4)
+					.ToListAsync();
+			ViewBag.RelatedProducts = relatedProducts;
+
+			return View(productsById);
 		}
 
 		public async Task<IActionResult>Search (string searchTerm)
@@ -34,6 +41,7 @@ namespace Shopping.Controllers
 
 			return View(products);
 		}
+
 	}
 
 }
