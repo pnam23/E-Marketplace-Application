@@ -11,24 +11,26 @@
 			<div class="col-sm-8 col-sm-offset-1">
 				<div class="signup-form">
 					<!--sign up form-->
-					<h2>New User Signup!</h2>
+					<h2>Đăng ký thành viên mới</h2>
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 					<form asp-action="Register" asp-controller="Account">
 						<div class="form-group">
-							<input asp-for="UserName" class="form-control" placeholder="Username" />
+							<input asp-for="UserName" class="form-control" placeholder="Nhập họ và tên" />
 							<span asp-validation-for="UserName" class="text-danger" />
 						</div>
 						<div class="form-group">
-							<input asp-for="Email" class="form-control" placeholder="Email address" />
+							<input asp-for="Email" class="form-control" placeholder="Nhập email" />
 							<span asp-validation-for="Email" class="text-danger" />
 						</div>
 						<div class="form-group">
-							<input asp-for="Password" class="form-control" placeholder="Password" />
+							<input asp-for="Password" class="form-control" placeholder="Nhập mật khẩu" />
 							<span asp-validation-for="Password" class="text-danger" />
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-default">Register</button>
+							<button type="submit" class="btn btn-default">Đăng ký</button>
 						</div>
+
+						
 					</form>
 				</div><!--/sign up form-->
 			</div>
