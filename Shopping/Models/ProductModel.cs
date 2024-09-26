@@ -25,6 +25,7 @@ namespace Shopping.Models
 		public BrandModel Brand { get; set; }
 		public CategoryModel Category { get; set; }
 		public string Image {  get; set; }
+		public RatingModel Ratings { get; set; }
 		[NotMapped]
 		[FileExtension]
 		public IFormFile? ImageUpload { get; set; }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shopping.Models;
+using Shopping.Models.ViewModels;
 using Shopping.Repository;
 
 namespace Shopping.Controllers
@@ -21,7 +23,9 @@ namespace Shopping.Controllers
 		{
 			if (id == null) return RedirectToAction("Index");
 
-			var productsById = _dataContext.Products.Where(p => p.Id == id).FirstOrDefault();
+			var productsById = _dataContext.Products.
+				Include(p=>p.Ratings).
+				Where(p => p.Id == id).FirstOrDefault();
 
 			// Related Products
 			var relatedProducts = await _dataContext.Products
@@ -30,7 +34,12 @@ namespace Shopping.Controllers
 					.ToListAsync();
 			ViewBag.RelatedProducts = relatedProducts;
 
-			return View(productsById);
+			var viewModel = new ProductDetailsViewModel()
+			{
+				ProductDetails = productsById,
+			};
+
+			return View(viewModel);
 		}
 
 		public async Task<IActionResult>Search (string searchTerm)
@@ -42,6 +51,41 @@ namespace Shopping.Controllers
 			return View(products);
 		}
 
+		public async Task<IActionResult> CommentProduct(RatingModel rating)
+		{
+			if (ModelState.IsValid)
+			{
+				var ratingEntity = new RatingModel
+				{
+					ProductId = rating.ProductId,
+					Name = rating.Name,
+					Email = rating.Email,
+					Comment = rating.Comment,
+					Star = rating.Star,
+				};
+				_dataContext.Ratings.Add(ratingEntity);
+				await _dataContext.SaveChangesAsync();
+
+				TempData["success"] = "Thêm đánh giá thành công!";
+
+				return Redirect(Request.Headers["Referer"]);
+			}
+			else
+			{
+				TempData["error"] = "Model có một vài thứ đang bị lỗi!";
+				List<string> errors = new List<string>();
+				foreach (var value in ModelState.Values)
+				{
+					foreach (var err in value.Errors)
+					{
+						errors.Add(err.ErrorMessage);
+					}
+				}
+				string errorMessage = string.Join('\n', errors);
+
+				return RedirectToAction("Detail", new { id = rating.ProductId });
+			}
+		}
 	}
 
 }

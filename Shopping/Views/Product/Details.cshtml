@@ -1,4 +1,4 @@
-﻿
+﻿@model ProductDetailsViewModel
 <div class="row">
 	<div class="col-sm-3">
 		@Html.Partial("_SidebarPartial")
@@ -9,7 +9,7 @@
 			<!--product-details-->
 			<div class="col-sm-5">
 				<div class="view-product">
-					<img src="~/images/@Model.Image" alt="" />
+					<img src="~/media/products/@Model.ProductDetails.Image" alt="" />
 					<h3>ZOOM</h3>
 				</div>
 				<div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -48,10 +48,10 @@
 				<div class="product-information">
 					<!--/product-information-->
 				
-					<h2>@Model.Name</h2>
+					<h2>@Model.ProductDetails.Name</h2>
 				
 					<span>
-						<span>US $@Model.Price</span>
+						<span>@Model.ProductDetails.Price.ToString("#,##0 đ")</span>
 						<label>Quantity: 1</label>
 						<input type="text" value="3" />
 						<button type="button" class="btn btn-fefault cart">
@@ -61,7 +61,7 @@
 					</span>
 					<p><b>Availability:</b> In Stock</p>
 					<p><b>Condition:</b> New</p>
-					<p><b>Brand:</b> @Model.Brand.Name</p>
+					<p><b>Brand:</b> @Model.ProductDetails.Brand.Name</p>
 					<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
 				</div><!--/product-information-->
 			</div>
@@ -74,12 +74,12 @@
 					<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
 					<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
 					<li><a href="#tag" data-toggle="tab">Tag</a></li>
-					<li ><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+					<li class="active"><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
 				</ul>
 			</div>
 			<div class="tab-content">
 				<div class="tab-pane fade active in" id="details">
-					@Model.Description
+					@Model.ProductDetails.Description
 				</div>
 
 				<div class="tab-pane fade" id="companyprofile">
@@ -194,16 +194,25 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 						<p><b>Write Your Review</b></p>
 
-						<form action="#">
+						<form asp-action="CommentProduct" asp-controller="Product" method="POST">
 							<span>
-								<input type="text" placeholder="Your Name" />
-								<input type="email" placeholder="Email Address" />
+								<input asp-for="@Model.ProductDetails.Id" name="ProductId" type="hidden" />
+
+								<input name="Star" type="hidden" value="4"/>
+
+								<input asp-for="@Model.Name" type="text" placeholder="Your Name" />
+								<span asp-validation-for="@Model.Name" class="text-danger" />
+
+								<input asp-for="@Model.Email" type="text" placeholder="Your Email" />
+								<span asp-validation-for="@Model.Email" class="text-danger" />
 							</span>
-							<textarea name=""></textarea>
+							<textarea asp-for="@Model.Comment" name=""></textarea>
+							<span asp-validation-for="@Model.Comment" class="text-danger" />
+
 							<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-							<button type="button" class="btn btn-default pull-right">
-								Submit
-							</button>
+							<div class="form-group">
+								<button class="btn btn-primary">Submit</button>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -220,20 +229,21 @@
 					<div class="item active">
 						@foreach (var relatedProduct in ViewBag.RelatedProducts as IEnumerable<ProductModel>)
 						{
+							<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
-
-									<div class="productinfo text-center">
-										<a asp-action="Details" asp-controller="Product" asp-route-id="@relatedProduct.Id">
-											<img src="~/media/products/@relatedProduct.Image" alt="@relatedProduct.Description" />
-											<h2>@relatedProduct.Price.ToString("#,##0 đ")</h2>
-											<p>@relatedProduct.Name</p>
-											<p>Danh mục: @relatedProduct.Category.Name</p>
-											<p>Thương hiệu: @relatedProduct.Brand.Name</p>
-										</a>
-										<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="Cart" asp-route-id="@relatedProduct.Id"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									
+										<div class="productinfo text-center">
+											<a asp-action="Details" asp-controller="Product" asp-route-id="@relatedProduct.Id">
+												<img src="~/media/products/@relatedProduct.Image" alt="@relatedProduct.Description" />
+												<h2>@relatedProduct.Price.ToString("#,##0 đ")</h2>
+												<p>@relatedProduct.Name</p>
+												<p>Danh mục: @relatedProduct.Category.Name</p>
+												<p>Thương hiệu: @relatedProduct.Brand.Name</p>
+											</a>
+											<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="Cart" asp-route-id="@relatedProduct.Id"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
 									</div>
-
 
 								</div>
 
