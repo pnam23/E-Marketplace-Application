@@ -5,7 +5,8 @@
 <h4>Edit product</h4>
 <div class="col-md-9">
 	<form asp-action="Edit" enctype="multipart/form-data">
-		<div asp-asp-validation-summary="ModelOnly" class="text-danger">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<input type="hidden" asp-for="Id" />
 			<div class="form-group">
 				<label>Name</label>
 				<input asp-for="Name" class="form-control" placeholder="Enter product name"/>
@@ -44,9 +45,9 @@
 				<label>Image</label>
 				<input asp-for="ImageUpload" class="form-control-file" />
 				<span asp-validation-for="ImageUpload" class="text-danger"></span>
-				<img id="imgpreview" src="~/media/products/@Model.Image" width="120" />
+				<img id="imgpreview" src="~/media/products/@Model.Image" width="120px" />
 			</div>
-		</div>
+		
 		<div class="form-group">
 			<button class="btn btn-primary">Update</button>
 		</div>

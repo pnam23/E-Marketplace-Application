@@ -1,7 +1,14 @@
 ﻿@model ProductDetailsViewModel
+
+@{
+	ViewData["Title"] = "Detail";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class="row">
 	<div class="col-sm-3">
-		@Html.Partial("_SidebarPartial")
+		@* @Html.Partial("_SidebarPartial") *@
+		<partial name="_SidebarPartial" />
 	</div>
 
 	<div class="col-sm-9 padding-right">
@@ -193,27 +200,33 @@
 						</ul>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 						<p><b>Write Your Review</b></p>
-
-						<form asp-action="CommentProduct" asp-controller="Product" method="POST">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<form autocomplete="off" asp-action="CommentProduct" asp-controller="Product" method="POST">
+							
 							<span>
-								<input asp-for="@Model.ProductDetails.Id" name="ProductId" type="hidden" />
+								<input asp-for="ProductDetails.Id" name="ProductId" type="hidden" />
 
 								<input name="Star" type="hidden" value="4"/>
 
-								<input asp-for="@Model.Name" type="text" placeholder="Your Name" />
-								<span asp-validation-for="@Model.Name" class="text-danger" />
+								<input asp-for="Name" name="Name" type="text" placeholder="Your Name" />
+								<span asp-validation-for="Name" class="text-danger" />
 
-								<input asp-for="@Model.Email" type="text" placeholder="Your Email" />
-								<span asp-validation-for="@Model.Email" class="text-danger" />
+								<input asp-for="Email" name="Email" type="email" placeholder="Your Email" />
+								<span asp-validation-for="Email" class="text-danger" />
+							
 							</span>
-							<textarea asp-for="@Model.Comment" name=""></textarea>
-							<span asp-validation-for="@Model.Comment" class="text-danger" />
+							<textarea asp-for="Comment" name="Comment"></textarea>
+							<span asp-validation-for="Comment" class="text-danger" />
 
 							<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
 							<div class="form-group">
-								<button class="btn btn-primary">Submit</button>
+								<button class="btn btn-default pull-right" >
+									Submit
+								</button>
 							</div>
 						</form>
+
+						
 					</div>
 				</div>
 

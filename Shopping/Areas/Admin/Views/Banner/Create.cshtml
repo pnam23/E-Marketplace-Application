@@ -1,22 +1,26 @@
-﻿@model CategoryModel
+﻿@model BannerModel
 @{
-	ViewData["title"] = "Create Category";
+	ViewData["title"] = "Create Banner";
 }
-<h4>Create category</h4>
+<h3>Create Banner</h3>
 <div class="col-md-9">
 	<form asp-action="Create" enctype="multipart/form-data">
-		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div asp-asp-validation-summary="ModelOnly" class="text-danger">
 			<div class="form-group">
 				<label>Name</label>
-				<input asp-for="Name" class="form-control" placeholder="Enter category name"/>
+				<input asp-for="Name" class="form-control" placeholder="Enter banner name"/>
 				<span asp-validation-for="Name" class="text-danger" />
 			</div>
 
+			
+
 			<div class="form-group" >
 				<label>Description</label>
-				<textarea asp-for="Description" class="form-control" placeholder="Please enter category description here"></textarea>
+				<textarea asp-for="Description" class="form-control" placeholder="Please enter banner description here"></textarea>
 				<span asp-validation-for="Description" class="text-danger" />
 			</div>
+
+		
 
 			<div class="form-group">
 				<label>Status</label>
@@ -24,20 +28,30 @@
 					<option value="1">Hiển thị</option>
 					<option value="0">Ẩn</option>
 				</select>
-				<span asp-validation-for="Status" class="text-danger"></span>
 			</div>
 
-		
+			<div class="form-group">
+				<label>Image</label>
+				<input asp-for="ImageUpload" class="form-control-file" />
+				<span asp-validation-for="ImageUpload" class="text-danger"></span>
+				<img id="imgpreview" class="pt-2" />
+			</div>
+		</div>
 		<div class="form-group">
 			<button class="btn btn-primary">Create</button>
 		</div>
 	</form>
-	<a asp-action="Index">Back to List Categories</a>
+	<a asp-action="Index">Back to List Banners</a>
 </div>
 
 @section Scripts{
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
+	<script>
+		$("#ImageUpload").change(function(){
+			readURL(this);
+		})
+	</script>
 }
 

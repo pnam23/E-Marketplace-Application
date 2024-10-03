@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\phuong nam\OneDrive - VNU-HCMUS\pnam\aspdotnet\Shopping\Shopping
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Areas/Admin/Views/Banner/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Areas/Admin/Views/Banner/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Areas/Admin/Views/Banner/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Areas/Admin/Views/Brand/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -180,6 +192,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Views/Shared/_SidebarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Views/Shared/_SliderPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TbGlkZXJQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/phuong nam/OneDrive - VNU-HCMUS/pnam/aspdotnet/Shopping/Shopping/Views/Shared/_ValidationScriptsPartial.cshtml]

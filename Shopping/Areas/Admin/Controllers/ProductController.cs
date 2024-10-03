@@ -163,8 +163,6 @@ namespace Shopping.Areas.Admin.Controllers
 				string errorMessage = string.Join('\n', errors);
 				return BadRequest(errorMessage);
 			}
-
-			return View(product);
 		}
 		[Route("Delete")]
 		public async Task<IActionResult> Delete(int id)

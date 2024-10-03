@@ -29,38 +29,38 @@
 <body>
 	<header id="header">
 		<!--header-->
-		<div class="header_top">
-			<!--header_top-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-							</ul>
+			@* <div class="header_top">
+				<!--header_top-->
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="contactinfo">
+								<ul class="nav nav-pills">
+									<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+									<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								</ul>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
+						<div class="col-sm-6">
+							<div class="social-icons pull-right">
+								<ul class="nav navbar-nav">
+									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+									<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div><!--/header_top-->
+			</div><!--/header_top--> *@
 
 		<div class="header-middle">
 			<!--header-middle-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-4">
+					@* <div class="col-sm-4">
 						<div class="logo pull-left">
 							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
 						</div>
@@ -87,15 +87,24 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div> *@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+									<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+									<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+									<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-lock"></i>Chào @User.Identity.Name, Đăng xuất</a></li>
+								}
+								else
+								{
+									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+
+								}
 							</ul>
 						</div>
 					</div>
@@ -118,14 +127,15 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a asp-controller="Home" class="active">Home</a></li>
+								<li><a asp-action="Index" asp-controller="Home" class="active">Home</a></li>
 						
-								<li><a asp-controller="Product"> Products</a></li>
-								<li><a asp-controller="Category"> Categories</a></li>
-								<li><a asp-controller="Brand"> Brands</a></li>
-								<li><a asp-controller="Order"> Orders</a></li>
-								<li><a asp-controller="User"> Users</a></li>
-								<li><a asp-controller="Role"> Roles</a></li>
+								<li><a  asp-action="Index" asp-controller="Product">Manage Products</a></li>
+								<li><a  asp-action="Index" asp-controller="Banner">Manage Banners</a></li>
+								<li><a  asp-action="Index" asp-controller="Category">Manage Categories</a></li>
+								<li><a  asp-action="Index" asp-controller="Brand">Manage Brands</a></li>
+								<li><a  asp-action="Index" asp-controller="Order">Manage Orders</a></li>
+								<li><a  asp-action="Index" asp-controller="User">Manage Users</a></li>
+								<li><a  asp-action="Index" asp-controller="Role">Manage Roles</a></li>
 							</ul>
 						</div>
 					</div>

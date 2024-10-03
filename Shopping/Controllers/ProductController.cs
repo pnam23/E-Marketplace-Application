@@ -24,7 +24,7 @@ namespace Shopping.Controllers
 			if (id == null) return RedirectToAction("Index");
 
 			var productsById = _dataContext.Products.
-				Include(p=>p.Ratings).
+				Include(p => p.Ratings).
 				Where(p => p.Id == id).FirstOrDefault();
 
 			// Related Products
@@ -36,7 +36,7 @@ namespace Shopping.Controllers
 
 			var viewModel = new ProductDetailsViewModel()
 			{
-				ProductDetails = productsById,
+				ProductDetails = productsById
 			};
 
 			return View(viewModel);
@@ -51,7 +51,9 @@ namespace Shopping.Controllers
 			return View(products);
 		}
 
-		public async Task<IActionResult> CommentProduct(RatingModel rating)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult>CommentProduct(RatingModel rating)
 		{
 			if (ModelState.IsValid)
 			{
@@ -82,8 +84,9 @@ namespace Shopping.Controllers
 					}
 				}
 				string errorMessage = string.Join('\n', errors);
+				//return BadRequest(errorMessage);
+				return RedirectToAction("Details", new { id = rating.ProductId });
 
-				return RedirectToAction("Detail", new { id = rating.ProductId });
 			}
 		}
 	}

@@ -1,0 +1,67 @@
+﻿@model BannerModel
+@{
+	ViewData["title"] = "Edit Banner";
+}
+<h3>Edit Banner</h3>
+<div class="col-md-9">
+	<form asp-action="Edit" enctype="multipart/form-data">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<input asp-for="Id" type="hidden" />
+		<div class="form-group">
+			<label>Name</label>
+			<input asp-for="Name" class="form-control" placeholder="Enter banner name" />
+			<span asp-validation-for="Name" class="text-danger" />
+		</div>
+
+
+
+		<div class="form-group">
+			<label>Description</label>
+			<textarea asp-for="Description" class="form-control" placeholder="Please enter banner description here"></textarea>
+			<span asp-validation-for="Description" class="text-danger" />
+		</div>
+
+
+
+		<div class="form-group">
+			<label>Status</label>
+			<select asp-for="Status" class="form-control">
+				@if(Model.Status == 1)
+				{
+					<option selected value="1">Hiển thị</option>
+					<option value="0">Ẩn</option>
+				}
+				else
+				{
+					<option value="1">Hiển thị</option>
+					<option selected value="0">Ẩn</option>
+				}
+
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Image</label>
+			<input asp-for="ImageUpload" class="form-control-file" />
+			<span asp-validation-for="ImageUpload" class="text-danger"></span>
+			<img id="imgpreview" src="~/media/banners/@Model.Image" width="400px" />
+		</div>
+		
+		<div class="form-group">
+			<button class="btn btn-primary">Update</button>
+		</div>
+	</form>
+	<a asp-action="Index">Back to List Banners</a>
+</div>
+
+@section Scripts{
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#ImageUpload").change(function () {
+			readURL(this);
+		})
+	</script>
+}
+

@@ -41,6 +41,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\images\\LOL.jpg",
+      "PackagePath": "staticwebassets\\images\\LOL.jpg"
+    },
+    {
+      "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\images\\LOL2.jpg",
+      "PackagePath": "staticwebassets\\images\\LOL2.jpg"
+    },
+    {
       "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\images\\ipad-air-6-m2-11-inch_9.jpg",
       "PackagePath": "staticwebassets\\images\\ipad-air-6-m2-11-inch_9.jpg"
     },
@@ -59,6 +67,10 @@
     {
       "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\images\\samsung-galaxy-z-fold-6.jpg",
       "PackagePath": "staticwebassets\\images\\samsung-galaxy-z-fold-6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\images\\wukong.jpg",
+      "PackagePath": "staticwebassets\\images\\wukong.jpg"
     },
     {
       "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\js\\bootstrap.min.js",
@@ -323,6 +335,14 @@
     {
       "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\media\\banners\\5cdc8ff4-e9e2-43cd-96c1-905c55a832a6_LOL.jpg",
+      "PackagePath": "staticwebassets\\media\\banners\\5cdc8ff4-e9e2-43cd-96c1-905c55a832a6_LOL.jpg"
+    },
+    {
+      "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\media\\banners\\d639aa98-7cfe-4fb7-a915-c927e2aa408b_wukong.jpg",
+      "PackagePath": "staticwebassets\\media\\banners\\d639aa98-7cfe-4fb7-a915-c927e2aa408b_wukong.jpg"
     },
     {
       "Id": "C:\\Users\\phuong nam\\OneDrive - VNU-HCMUS\\pnam\\aspdotnet\\Shopping\\Shopping\\wwwroot\\media\\products\\110388f2-1d5f-4d2c-8454-473c4ae6aac8_iphone-13.jpg",

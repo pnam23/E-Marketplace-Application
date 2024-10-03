@@ -25,6 +25,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\back-end\images\" />
     <Folder Include="wwwroot\back-end\css\" />
+    <Folder Include="wwwroot\media\banners\" />
     <Folder Include="wwwroot\media\products\" />
   </ItemGroup>
 
