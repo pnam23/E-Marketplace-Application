@@ -8,7 +8,7 @@
 
 <h3>Order Details</h3>
 
-<table class="table">
+<table class="table" id="orderDetail">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -24,9 +24,9 @@
         @foreach (var item in Model)
         {
             subtotal = item.Quantity * item.Price;
-            total += subtotal; 
+            total += subtotal;
+            <input type="hidden" asp-for="@item.OrderCode" class="getId"/>
             <tr>
-                <input type="hidden" asp-for="@item.OrderCode" class="getId"/>
                 <td>@item.Id</td>
                 <td>@item.OrderCode</td>
                 <td>@item.UserName</td>
@@ -37,7 +37,11 @@
             </tr>
         }
         <tr>
-            <th colspan="5">Total:</th>
+            <td>Total:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>@total.ToString("C")</td>
             <td>
                 <select class="form-control select-update-order">
@@ -74,6 +78,16 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        new DataTable('#orderDetail', {
+            layout: {
+                topStart: {
+                    buttons: ['pdf', 'print']
+                }
+            }
         });
     </script>
 
